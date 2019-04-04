@@ -290,7 +290,7 @@ def changepassword():
     name = session['username']
     Session = sessionmaker(bind=engine)
     s = Session()
-    query = s.query(User).filter(User.password.in_([POST_PASSWORDOLD]))
+    query = s.query(User).filter(User.password.in_([POST_PASSWORDOLD]),User.username.in_([session['username']))
     result = query.first()
     if POST_PASSWORD == "" or POST_PASSWORDOLD == "":
         session['error'] = True                                                                 
@@ -1025,7 +1025,7 @@ def historysort():
     Session = sessionmaker(bind=engine)
     s = Session()
     POST_USERNAME = session['username']
-    query = s.query(Product).filter(Product.username.in_([POST_USERNAME])).order_by(Porduct.id.desc()).all()
+    query = s.query(Product).filter(Product.username.in_([POST_USERNAME])).order_by(Product.id.desc()).all()
     query1 = s.query(Component).filter(Component.username.in_([POST_USERNAME])).order_by(Component.id.desc()).all()
     return render_template('history.html',query=query,query1=query1)
 
