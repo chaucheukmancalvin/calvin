@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--import-->
+<title>sell device</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{{
+ url_for('static', filename='CSS/secondhand.css')}}">
+
+  </head>
+  <body>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+	<a class="navbar-brand" href="{{ url_for('index') }}" >
+	<img src="{{url_for('static',filename='icons8-home-filled-50.png')}}" alt="homepage img"/ ></a>
+	<!--Toggle/collapsilbe button-->
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<!--links-->
+	<div class="collapse navbar-collapse" id="collapsibleNavbar">
+	<ul class="navbar-nav">
+		<li class="nav-item">
+			<a class="nav-link" href="{{ url_for('aboutus') }}">About us</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="{{ url_for('advertisement') }}">Advertise job offers</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="{{ url_for('contactus') }}">Contact Us</a>
+		</li>
+		<!--Dropdown-->
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">User</a>
+			{% block body %}{% endblock %}
+		</li>
+<!--modal-->
+		<div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modalLoginLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalLogin">Login</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+			<form action="/login" method="POST">
+			<div class="form-group">
+				<label for="username">username</label>
+				<input type="username" name="username" placeholder="Username" class="form-control" id="username">
+			</div>
+			<div class="form-group">
+				<label for="pwd">Password: </label>
+				<input type="password" name="password" placeholder="Password" class="form-control" id="pwd">
+			</div>
+			
+			<button type="submit" class="btn btn-success" value="Log in">Login</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalLoginwronged" tabindex="-1" role="dialog" aria-labelledby="modalLoginwrongedLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalLoginwronged">Login</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+			<form action="/login" method="POST">
+			<div class="form-group">
+				<label for="username">username</label>
+				<input type="username" name="username" placeholder="Username" class="form-control" id="username">
+			</div>
+			<div class="form-group">
+				<label for="pwd">Password: </label>
+				<input type="password" name="password" placeholder="Password" class="form-control" id="pwd">
+			</div>
+			
+			<div>Wrong password or username</div>
+			<button type="submit" class="btn btn-success" value="Log in">Login</button>
+			</form>
+			
+		</div>
+			</div>
+			</div>
+		</div>
+		<div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="modalRegisterLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalRegister">Register</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+			<form action="/register" method="POST">
+			<div class="form-group">
+				<label for="username">create username: </label>
+				<input type="username" name="username" class="form-control" id="username">
+			</div>
+			<div class="form-group">
+				<label for="pwd">create Password: </label>
+				<input type="password" name="password" class="form-control" id="pwd">
+			</div>
+                        <div class="form-group">
+				<label for="email">create Email: </label>
+				<input type="email" name="email" class="form-control" id="email">
+			</div>
+			<div class="form-group">
+				<label for="credit">create credit-card no.: </label>
+				<input type="number" name="creditcardNo" class="form-control" id="credit" >
+			</div>
+			<button type="submit" class="btn btn-success">Register</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalProfile" tabindex="-1" role="dialog" aria-labelledby="modalProfileLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalProfile">{{ session['username'] }}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+			<form action="/changeusername" method="POST">
+			<div class="form-group">
+				<label for="username">change username:</label>
+				<input type="username" name="username" class="form-control" id="username">
+			</div>
+                        <button type="submit" class="btn btn-success">change username</button>
+                        </form>
+                        <form action="/changepassword" method="POST">
+			<div class="form-group">
+				<label for="pwd">change password:</label>
+				<input type="password" name="password" class="form-control" id="pwd">
+			</div>
+			<div class="form-group">
+				<label for="pwd old">old password:</label>
+				<input type="password" name="passwordold" class="form-control" id="pwd old">
+			</div>
+                        <button type="submit" class="btn btn-success">change password</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalForgetpassword" tabindex="-1" role="dialog" aria-labelledby="modalForgetpasswordLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalForgetpassword">Forget password</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+                        <form action="/forgetpassword" method="POST">
+			<div class="form-group">
+				<label for="username">username:</label>
+				<input type="username" name="username" class="form-control" id="username">
+			</div>
+			<div class="form-group">
+				<label for="email">email:</label>
+				<input type="email" name="email" class="form-control" id="email">
+			</div>
+                        <button type="submit" class="btn btn-success">forget password</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+	</ul>
+	
+</div>
+</nav>
+<h1>Sell second-hand device</h1>
+{% block inner %}{% endblock %}
+<div class="modal fade" id="modalSell6" tabindex="-1" role="dialog" aria-labelledby="modalSell6Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalSell6">Sell</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			        </div>
+		<div class="modal-body">
+                        <img src="https://img.icons8.com/color/96/000000/nintendo-64.png">
+			<form action="/upload6" method="POST" enctype="multipart/form-data" id="upload6">
+			<div class="form-group">
+                        <lable for="detail6">Detail:</lable>
+			<textarea form="upload6" row="4" cols="50" name="detail" class="form-control" id="detail6"></textarea>
+			</div>
+                        <div class="form-group">
+                        <lable for="price6">set a price:(in HKD)</lable>
+                        <input type="number" name="price" class="form-control" id="price6">
+                        </div>
+                        <div class="from-group">
+                        <lable for="file6">Select a photo to show your device:</lable>
+                        <input type="file" name="file" class="form-control" id="file6">
+                        </div>
+			<button type="submit" class="btn btn-success">Send request to sell the device</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalSell5" tabindex="-1" role="dialog" aria-labelledby="modalSell5Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalSell5">Sell</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			        </div>
+		<div class="modal-body">
+                        <img src="https://img.icons8.com/ios/100/000000/touchscreen-smartphone.png">
+			<form action="/upload5" method="POST" enctype="multipart/form-data" id="upload5">
+			<div class="form-group">
+                        <lable for="detail5">Detail:</lable>
+			<textarea form="upload5" row="4" cols="50" name="detail" class="form-control" id="detail5"></textarea>
+			</div>
+                        <div class="form-group">
+                        <lable for="price5">set a price:(in HKD)</lable>
+                        <input type="number" name="price" class="form-control" id="price5">
+                        </div>
+                        <div class="from-group">
+                        <lable for="file5">Select a photo to show your device:</lable>
+                        <input type="file" name="file" class="form-control" id="file5">
+                        </div>
+			<button type="submit" class="btn btn-success">Send request to sell the device</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalSell4" tabindex="-1" role="dialog" aria-labelledby="modalSell4Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalSell4">Sell</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			        </div>
+		<div class="modal-body">
+                        <img  src="https://img.icons8.com/dusk/64/000000/laptop.png">
+			<form action="/upload4" method="POST" enctype="multipart/form-data" id="upload4">
+			<div class="form-group">
+                        <lable for="detail4">Detail:</lable>
+			<textarea form="upload4" row="4" cols="50" name="detail" class="form-control" id="detail4"></textarea>
+			</div>
+                        <div class="form-group">
+                        <lable for="price4">set a price:(in HKD)</lable>
+                        <input type="number" name="price" class="form-control" id="price4">
+                        </div>
+                        <div class="from-group">
+                        <lable for="file4">Select a photo to show your device:</lable>
+                        <input type="file" name="file" class="form-control" id="file4">
+                        </div>
+			<button type="submit" class="btn btn-success">Send request to sell the device</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalSell3" tabindex="-1" role="dialog" aria-labelledby="modalSell3Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalSell3">Sell</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			        </div>
+		<div class="modal-body">
+                        <img src="https://img.icons8.com/color/96/000000/nintendo-64.png">
+			<form action="/upload3" method="POST" enctype="multipart/form-data" id="upload3">
+			<div class="form-group">
+                        <lable for="detail3">Detail:</lable>
+			<textarea form="upload3" row="4" cols="50" name="detail" class="form-control" id="detail3"></textarea>
+			</div>
+                        <div class="form-group">
+                        <lable for="price3">set a price:(in HKD)</lable>
+                        <input type="number" name="price" class="form-control" id="price3">
+                        </div>
+                        <div class="from-group">
+                        <lable for="file3">Select a photo to show your device:</lable>
+                        <input type="file" name="file" class="form-control" id="file3">
+                        </div>
+			<button type="submit" class="btn btn-success">Send request to sell the device</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalSell2" tabindex="-1" role="dialog" aria-labelledby="modalSell2Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalSell2">Sell</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			        </div>
+		<div class="modal-body">
+                        <img src="https://img.icons8.com/ios/100/000000/touchscreen-smartphone.png">
+			<form action="/upload2" method="POST" enctype="multipart/form-data" id="upload2">
+			<div class="form-group">
+                        <lable for="detail2">Detail:</lable>
+			<textarea form="upload2" row="4" cols="50" name="detail" class="form-control" id="detail2"></textarea>
+			</div>
+                        <div class="form-group">
+                        <lable for="price2">set a price:(in HKD)</lable>
+                        <input type="number" name="price" class="form-control" id="price2">
+                        </div>
+                        <div class="from-group">
+                        <lable for="file2">Select a photo to show your device:</lable>
+                        <input type="file" name="file" class="form-control" id="file2">
+                        </div>
+			<button type="submit" class="btn btn-success">Send request to sell the device</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+
+<div class="modal fade" id="modalSell1" tabindex="-1" role="dialog" aria-labelledby="modalSell1Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalSell1">Sell</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			        </div>
+		<div class="modal-body">
+                        <img  src="https://img.icons8.com/dusk/64/000000/laptop.png">
+			<form action="/upload1" method="POST" enctype="multipart/form-data" id="upload1">
+			<div class="form-group">
+                        <lable for="detail1">Detail:</lable>
+			<textarea form="upload1" row="4" cols="50" name="detail" class="form-control" id="detail1"></textarea>
+			</div>
+                        <div class="form-group">
+                        <lable for="price1">set a price:(in HKD)</lable>
+                        <input type="number" name="price" class="form-control" id="price1">
+                        </div>
+                        <div class="from-group">
+                        <lable for="file1">Select a photo to show your device:</lable>
+                        <input type="file" name="file" class="form-control" id="file1">
+			<button type="submit" class="btn btn-success">Send request to sell the device</button>
+                        </div>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalSellerror" tabindex="-1" role="dialog" aria-labelledby="modalSellerrorLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalSellerror">Error</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			        </div>
+                        <div class="modal-body">
+			<h2>Something are wrong, please try again</h2>
+		        </div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalSellerror1" tabindex="-1" role="dialog" aria-labelledby="modalSellerror1Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalSellerror1">Error</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			        </div>
+                        <div class="modal-body">
+			<h2>File wrong, please try again</h2>
+		        </div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalSellerror2" tabindex="-1" role="dialog" aria-labelledby="modalSellerror2Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalSellerror2">Error</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			        </div>
+                        <div class="modal-body">
+			<h2>Price must be integer</h2>
+		        </div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalSellerror3" tabindex="-1" role="dialog" aria-labelledby="modalSellerror3Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalSellerror3">Error</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			        </div>
+                        <div class="modal-body">
+			<h2>Not filled in all the form</h2>
+		        </div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalSellsuccess" tabindex="-1" role="dialog" aria-labelledby="modalSellsuccessLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalSellerror">Success request for selling device</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			        </div>
+			</div>
+			</div>
+		</div>
+<!--footer-->
+<footer>
+	<p class="text-muted">
+	<a href="https://icons8.com/icon/42920/laptop" class="text-reset">Laptop icon by Icons8</a>
+	&nbsp;
+	<a href="https://icons8.com/icon/40979/nintendo-64" class="text-reset">Nintendo 64 icon by Icons8</a>
+	&nbsp;
+	<a href="https://icons8.com/icon/2797/home-filled" class="text-reset">Home Filled icon by Icons8 </a>
+	&nbsp;
+	<a href="https://icons8.com/icon/11409/touchscreen" class="text-reset">Touchscreen icon by Icons8</a>
+	&nbsp;
+	<a href="https://icons8.com/icon/933/robot" class="text-reset">Robot icon by Icons8</a>
+	&nbsp;
+	<a href="https://icons8.com/icon/12773/search" class="text-reset">Search icon by Icons8</a>
+	</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,19 @@
+@import 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:700';
+
+h1 {text-align: center;	
+	font-size: 50px;}
+html,body {background: -webkit-linear-gradient(pink,chocolate);
+	   background: -o-linear-gradient(pink,chocolate);
+	   background: -moz-linear-gradient(pink,chocolate);
+	   background: linear-gradient(pink,chocolate);;
+           width: 100%;
+           height: 100%;
+           text-align: center;
+           font-family: "Source Sans Pro", sans-serif;
+           }
+table {margin:auto;
+           width:80%;
+           border: 1px solid #ddd;}
+#usersell tr, #usersell td{border: 1px solid #ddd;}
+h3   {margin:auto;
+       width:80%;}

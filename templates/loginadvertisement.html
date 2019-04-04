@@ -1,0 +1,16 @@
+{% extends "advertisement.html" %}
+<!--difference between logged in and not logged in-->
+{% block body %}
+<div class="dropdown-menu">
+{% if session['logged_in'] %}
+<a class="dropdown-item" href="/logout">Logout</a>
+<a class="dropdown-item" href="/sellinfo">Record of selling secondhand device</a>
+<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalProfile">Proflie</a>
+<a class="dropdown-item" href="/purchasehistory">History</a>
+{% else %}
+<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalLogin">Login</a>
+<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalRegister">Register</a>
+<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalForgetpassword">forgetpassword</a>
+{% endif %}
+</div>
+{% endblock %}

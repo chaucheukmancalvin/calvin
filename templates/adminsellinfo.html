@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--import-->
+	<title>Hardware Production Co.</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{{
+ url_for('static', filename='CSS/sellinfo.css')}}">
+</head>
+<body>
+<!--nav bar-->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+	<a class="navbar-brand" href="{{ url_for('admin') }}">
+	<img src="{{url_for('static',filename='icons8-home-filled-50.png')}}" alt="homepage img" ></a>
+	<!--Toggle/collapsilbe button-->
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<!--links-->
+	<div class="collapse navbar-collapse" id="collapsibleNavbar">
+	<ul class="navbar-nav">
+		<!--Dropdown-->
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Admin</a>
+			<div class="dropdown-menu">
+			<a class="dropdown-item" href="/logout">Logout</a>
+                        <a class="dropdown-item" href="#">Record of selling secondhand device</a>
+                        <a class="dropdown-item" href="/adminhistory">History</a>
+                        </div>
+		</li>
+	</ul>
+	
+</div>
+</nav>
+<!--content-->
+{% if query %}
+<!--search-->
+<script>
+$(document).ready(function(){
+    $("#searchthing").on("keyup", function(){
+        var value = $(this).val().toLowerCase();
+        $("#usersell tr").filter(function(){
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+});
+});
+</script>
+<div style='width:100%;'>
+<h1>Request list:</h1>
+<h3>
+  <input class="form-control" id="searchthing" type="text" placeholder="Search table">
+</h3>
+<!--sort-->
+<h2>
+<a href="{{ url_for('sortadmin') }}">
+		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sort by Lastest</button>
+	</a>
+<a href="{{ url_for('adminsellinfo') }}">
+		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sort by Default</button>
+	</a>
+</h2>
+<!--table-->
+<table>
+  <tr class="header">
+    <th style="width:12.5%;">Detail</th>
+    <th style="width:12.5%;">Price</th>
+    <th style="width:12.5%;">Username</th>
+    <th style="width:12.5%;">Modle</th>
+    <th style="width:12.5%;">State</th>
+    <th style="width:12.5%;">Photo</th>
+  </tr>
+<tbody id="usersell">
+{% for i in query %}
+
+  
+  <tr>
+     <td>{{ i.detail }}</td>
+     <td>{{ i.price }}</td>
+     <td>{{ i.username }}</td>
+     <td>{{ i.modle }}</td>
+     <td>{{ i.state }}</td>
+     <td>{% if i.state == 'admin not confirm' %}
+     <p>Prease the photo to purchase</p>
+     <a href="#" data-toggle="modal" data-target="#modalInfoadmin{{ i.id|string }}">
+     {% endif %}
+         {% if i.state == 'Done' %}
+     <p>Prease the photo to see the chosen date</p>
+     <a href="#" data-toggle="modal" data-target="#modalDoneinfo{{ i.id|string }}">
+        {% endif %}
+        
+     <img src="{{ url_for('static',filename='uploadimg/' +  i.id|string  + '.' + List[0]|string ) }}" width="70" height="70">
+     </a>
+     </td>
+  </tr>
+ <!--modal-->
+<div class="modal fade" id="modalInfoadmin{{ i.id|string }}" tabindex="-1" role="dialog" aria-labelledby="modalInfoadmin{{ i.id|string }}Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalInfoadmin{{ i.id|string }}">Purchase</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+                               </div>
+		               <div class="modal-body">
+                               <form method="POST" action="/statechange">
+                               <button type="submit" class="btn btn-success" name="{{ i.id|string }}">Purchase divice-id: {{ i.id|string }}</button>
+                               </form>
+                               </div>
+                        </div>
+			</div>
+		</div>
+<div class="modal fade" id="modalDoneinfo{{ i.id|string }}" tabindex="-1" role="dialog" aria-labelledby="modalDoneinfo{{ i.id|string }}Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalInfoadmin{{ i.id|string }}">Date to send out:{{ i.date }}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+                                </div>
+                        </div>
+			</div>
+</div>
+{% if List.pop(0) %}    
+{% endif %}
+{% endfor %}
+</tbody>
+</table>
+</div>
+{% endif %}
+
+</body>
+</html>

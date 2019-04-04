@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--import-->
+	<title>Hardware Production Co.</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{{
+ url_for('static', filename='CSS/history.css')}}">
+</head>
+<body>
+<!--nav bar-->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+	<a class="navbar-brand" href="{{ url_for('index') }}">
+	<img src="{{url_for('static',filename='icons8-home-filled-50.png')}}" alt="homepage img"></a>
+	<!--Toggle/collapsilbe button-->
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<!--links-->
+	<div class="collapse navbar-collapse" id="collapsibleNavbar">
+	<ul class="navbar-nav">
+		<li class="nav-item">
+			<a class="nav-link" href="{{ url_for('aboutus') }}">About us</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="{{ url_for('advertisement') }}">Advertise job offers</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="{{ url_for('contactus') }}">Contact Us</a>
+		</li>
+		<!--Dropdown-->
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">User</a>
+			<div class="dropdown-menu">
+			<a class="dropdown-item" href="/logout">Logout</a>
+                        <a class="dropdown-item" href="/sellinfo">Record of selling secondhand device</a>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalProfile">Proflie</a>
+                        <a class="dropdown-item" href="#">History</a>
+                        </div>
+		</li>
+<!--modal-->
+<div class="modal fade" id="modalProfile" tabindex="-1" role="dialog" aria-labelledby="modalProfileLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalProfile">{{ session['username'] }}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+			<form action="/changeusername" method="POST">
+			<div class="form-group">
+				<label for="username">change username:</label>
+				<input type="username" name="username" class="form-control" id="username">
+			</div>
+                        <button type="submit" class="btn btn-success">change username</button>
+                        </form>
+                        <form action="/changepassword" method="POST">
+			<div class="form-group">
+				<label for="pwd">change password:</label>
+				<input type="password" name="password" class="form-control" id="pwd">
+			</div>
+			<div class="form-group">
+				<label for="pwd old">old password:</label>
+				<input type="password" name="passwordold" class="form-control" id="pwd old">
+			</div>
+                        <button type="submit" class="btn btn-success">change password</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+	</ul>
+	
+</div>
+</nav>
+<!--content-->
+{% if query %}
+<!--search-->
+<script>
+$(document).ready(function(){
+    $("#searchthing").on("keyup", function(){
+        var value = $(this).val().toLowerCase();
+        $("#userpurchase tr").filter(function(){
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+});
+});
+</script>
+<div style='width:100%;'>
+<h1>Purchase list of product:</h1>
+<h3>
+    <input class="form-control" id="searchthing" type="text" placeholder="Search table">
+</h3>
+<!--sort-->
+<h2>
+<a href="{{ url_for('historysort') }}">
+		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sort by Lastest</button>
+	</a>
+<a href="{{ url_for('purchasehistory') }}">
+		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sort by Default</button>
+	</a>
+</h2>
+<!--table-->
+<table>
+<tr>
+    <th style="width:25%;">ID</th>
+    <th style="width:25%;">Username</th>
+    <th style="width:25%;">Amount</th>
+    <th style="width:25%;">Modle</th> 
+  </tr>
+<tbody id="userpurchase">
+    {% for i in query %}
+      <tr>
+      <td>{{ i.id }}</td>
+      <td>{{ i.username }}</td>
+      <td>{{ i.purchaseno }}</td>
+      <td>{{ i.modle }}</td>
+      </tr>
+    {% endfor %}
+</tbody>
+</table>
+</div>
+{% endif %}
+{% if query1 %}
+<!--anotherone-->
+<script>
+$(document).ready(function(){
+    $("#searchthing").on("keyup", function(){
+        var value = $(this).val().toLowerCase();
+        $("#userpurchase1 tr").filter(function(){
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+});
+});
+</script>
+<div style='width:100%;'>
+<h1>Purchase list of component:</h1>
+
+{% if not query %}
+<h3>
+<input class="form-control" id="searchthing" type="text" placeholder="Search table">
+</h3>
+<h2>
+<a href="{{ url_for('historysort') }}">
+		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sort by Lastest</button>
+	</a>
+<a href="{{ url_for('purchasehistory') }}">
+		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sort by Default</button>
+	</a>
+</h2>
+{% endif %}
+<table>
+    <th style="width:25%;">ID</th>
+    <th style="width:25%;">Username</th>
+    <th style="width:25%;">Amount</th>
+    <th style="width:25%;">Modle</th>
+  </tr>
+<tbody id="userpurchase1">
+    {% for i in query1 %}
+      <tr>
+      <td>{{ i.id }}</td>
+      <td>{{ i.username }}</td>
+      <td>{{ i.Purchaseno }}</td>
+      <td>{{ i.modle }}</td>
+      </tr>
+    {% endfor %}
+</tbody>
+</table>
+</div>
+{% endif %}
+{% if not query %}
+{% if not query1 %}
+<h1> No record </h1>
+{% endif %}
+{% endif %}
+</body>
+</html>

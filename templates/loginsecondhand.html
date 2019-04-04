@@ -1,0 +1,163 @@
+{% extends "secondhand.html" %}
+<!--difference between logged in and not logged in-->
+{% block body %}
+<div class="dropdown-menu">
+{% if session['logged_in'] %}
+<a class="dropdown-item" href="/logout">Logout</a>
+<a class="dropdown-item" href="/sellinfo">Record of selling secondhand device</a>
+<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalProfile">Proflie</a>
+<a class="dropdown-item" href="/purchasehistory">History</a>
+{% else %}
+<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalLogin">Login</a>
+<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalRegister">Register</a>
+<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalForgetpassword">forgetpassword</a>
+{% endif %}
+</div>
+{% endblock %}
+{% block inner %}
+{% if session['logged_in'] %}
+<script>if (window.location.pathname=="/secondhanderror"){
+$(document).ready(function(){$("#modalSellerror").modal("show");});}
+else if (window.location.pathname=="/secondhanderror1"){
+$(document).ready(function(){$("#modalSellerror1").modal("show");});}
+else if (window.location.pathname=="/secondhanderror2"){
+$(document).ready(function(){$("#modalSellerror2").modal("show");});}
+else if (window.location.pathname=="/secondhanderror3"){
+$(document).ready(function(){$("#modalSellerror3").modal("show");});}
+else if (window.location.pathname=="/upload1"){
+$(document).ready(function(){$("#modalSellsuccess").modal("show");});}
+else if (window.location.pathname=="/upload2"){
+$(document).ready(function(){$("#modalSellsuccess").modal("show");});}
+else if (window.location.pathname=="/upload3"){
+$(document).ready(function(){$("#modalSellsuccess").modal("show");});}
+else if (window.location.pathname=="/upload4"){
+$(document).ready(function(){$("#modalSellsuccess").modal("show");});}
+else if (window.location.pathname=="/upload5"){
+$(document).ready(function(){$("#modalSellsuccess").modal("show");});}
+else if (window.location.pathname=="/upload6"){
+$(document).ready(function(){$("#modalSellsuccess").modal("show");});}
+</script>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <img src="https://img.icons8.com/dusk/64/000000/laptop.png">
+    </div>
+    <div class="col">
+      <img src="https://img.icons8.com/ios/100/000000/touchscreen-smartphone.png">
+    </div>
+    <div class="col">
+      <img src="https://img.icons8.com/color/96/000000/nintendo-64.png">
+    </div>
+  </div>
+	<div class="row">
+		<div class="col">
+
+  <button class="btn btn-primary" data-toggle="modal" data-target="#modalSell1">  
+        modle:A
+  </button>
+		</div>
+		<div class="col">
+  <button class="btn btn-info " data-toggle="modal" data-target="#modalSell2">
+        Modle:B
+      
+  </button>
+		</div>
+		<div class="col">
+  <button class="btn btn-warning" data-toggle="modal" data-target="#modalSell3">
+        Modle:C
+  </button>
+		</div>
+	</div>
+	<div class="row">
+    <div class="col">
+      <img src="https://img.icons8.com/dusk/64/000000/laptop.png">
+    </div>
+    <div class="col">
+      <img src="https://img.icons8.com/ios/100/000000/touchscreen-smartphone.png">
+    </div>
+    <div class="col">
+      <img src="https://img.icons8.com/color/96/000000/nintendo-64.png">
+    </div>
+  </div>
+	<div class="row">
+		<div class="col-sm">
+  <button class="btn btn-secondary" data-toggle="modal" data-target="#modalSell4">
+        Modle:D
+  </button>
+		</div>
+		<div class="col">
+  <button class="btn btn-dark" data-toggle="modal" data-target="#modalSell5">
+   
+        Modle:E
+      
+  </button>
+		</div>
+		<div class="col">
+  <button class="btn btn-light" data-toggle="modal" data-target="#modalSell6">
+        Modle:F
+  </button>
+		</div>
+	</div>
+</div>
+{% else %}
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <img src="https://img.icons8.com/dusk/64/000000/laptop.png">
+    </div>
+    <div class="col">
+      <img src="https://img.icons8.com/ios/100/000000/touchscreen-smartphone.png">
+    </div>
+    <div class="col">
+      <img src="https://img.icons8.com/color/96/000000/nintendo-64.png">
+    </div>
+  </div>
+	<div class="row">
+		<div class="col">
+
+  <button class="btn btn-primary" data-toggle="modal" data-target="#modalLogin">
+        modle:A
+  </button>
+		</div>
+		<div class="col">
+  <button class="btn btn-info" data-toggle="modal" data-target="#modalLogin">
+        Modle:B
+  </button>
+		</div>
+		<div class="col">
+  <button class="btn btn-warning" data-toggle="modal" data-target="#modalLogin">
+        Modle:C
+  </button>
+		</div>
+	</div>
+	<div class="row">
+    <div class="col">
+      <img src="https://img.icons8.com/dusk/64/000000/laptop.png">
+    </div>
+    <div class="col">
+      <img src="https://img.icons8.com/ios/100/000000/touchscreen-smartphone.png">
+    </div>
+    <div class="col">
+      <img src="https://img.icons8.com/color/96/000000/nintendo-64.png">
+    </div>
+  </div>
+	<div class="row">
+		<div class="col">
+  <button class="btn btn-secondary" data-toggle="modal" data-target="#modalLogin">
+        Modle:D
+  </button>
+		</div>
+		<div class="col">
+  <button class="btn btn-dark" data-toggle="modal" data-target="#modalLogin">
+        Modle:E
+  </button>
+		</div>
+		<div class="col">
+  <button class="btn btn-light" data-toggle="modal" data-target="#modalLogin">
+        Modle:F
+  </button>
+		</div>
+	</div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--import-->
+	<title>Hardware Production Co.</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{{
+ url_for('static', filename='CSS/history.css')}}">
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+	<a class="navbar-brand" href="{{ url_for('admin') }}">
+	<img src="{{url_for('static',filename='icons8-home-filled-50.png')}}" alt="homepage img" ></a>
+	<!--Toggle/collapsilbe button-->
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<!--links-->
+	<div class="collapse navbar-collapse" id="collapsibleNavbar">
+	<ul class="navbar-nav">
+		
+		<!--Dropdown-->
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">Admin</a>
+			<div class="dropdown-menu">
+			<a class="dropdown-item" href="/logout">Logout</a>
+                        <a class="dropdown-item" href="/adminsellinfo">Record of selling secondhand device</a>
+                        <a class="dropdown-item" href="#">History</a>
+                        </div>
+		</li>
+	</ul>
+	
+</div>
+</nav>
+<!--content-->
+{% if query %}
+<!--search function-->
+<script>
+$(document).ready(function(){
+    $("#searchthing").on("keyup", function(){
+        var value = $(this).val().toLowerCase();
+        $("#userpurchase tr").filter(function(){
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+});
+});
+</script>
+<div style='width:100%;'>
+<h1>Purchase list of product:</h1>
+<h3>
+<input class="form-control" id="searchthing" type="text" placeholder="Search table">
+</h3>
+<!--sort-->
+<h2>
+<a href="{{ url_for('adminhistorysort') }}">
+		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sort by Lastest</button>
+	</a>
+<a href="{{ url_for('adminhistory') }}">
+		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sort by Default</button>
+	</a>
+</h2>
+<!--table-->
+<table>
+<tr>
+    <th style="width:25%;">ID</th>
+    <th style="width:25%;">Username</th>
+    <th style="width:25%;">Amount</th>
+    <th style="width:25%;">Modle</th> 
+  </tr>
+<tbody id="userpurchase">
+    {% for i in query %}
+      <tr>
+      <td>{{ i.id }}</td>
+      <td>{{ i.username }}</td>
+      <td>{{ i.purchaseno }}</td>
+      <td>{{ i.modle }}</td>
+      </tr>
+    {% endfor %}
+</tbody>
+</table>
+</div>
+{% endif %}
+<!--another same function but different table-->
+{% if query1 %}
+<script>
+$(document).ready(function(){
+    $("#searchthing").on("keyup", function(){
+        var value = $(this).val().toLowerCase();
+        $("#userpurchase1 tr").filter(function(){
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+});
+});
+</script>
+<div style='width:100%;'>
+<h1>Purchase list of component:</h1>
+{% if not query %}
+<h3>
+<input class="form-control" id="searchthing" type="text" placeholder="Search table">
+</h3>
+<h2>
+<a href="{{ url_for('adminhistorysort') }}">
+		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sort by Lastest</button>
+	</a>
+<a href="{{ url_for('adminhistory') }}">
+		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sort by Default</button>
+	</a>
+</h2>
+{% endif %}
+<table>
+<tr>
+    <th style="width:25%;">ID</th>
+    <th style="width:25%;">Username</th>
+    <th style="width:25%;">Amount</th>
+    <th style="width:25%;">Modle</th>
+  </tr>
+<tbody id="userpurchase1">
+    {% for i in query1 %}
+      <tr>
+      <td>{{ i.id }}</td>
+      <td>{{ i.username }}</td>
+      <td>{{ i.Purchaseno }}</td>
+      <td>{{ i.modle }}</td>
+      </tr>
+    {% endfor %}
+</tbody>
+</table>
+</div>
+{% endif %}
+</body>
+</html>

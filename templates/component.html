@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--import-->
+<title>component of machine</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{{
+ url_for('static', filename='CSS/component.css')}}">
+ 
+  </head>
+  <body>
+<!--nav bar-->
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+	<a class="navbar-brand" href="{{ url_for('index') }}" >
+	<img src="{{url_for('static',filename='icons8-home-filled-50.png')}}" alt="homepage img"/ ></a>
+	<!--Toggle/collapsilbe button-->
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<!--links-->
+	<div class="collapse navbar-collapse" id="collapsibleNavbar">
+	<ul class="navbar-nav">
+		<li class="nav-item">
+			<a class="nav-link" href="{{ url_for('aboutus') }}">About us</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="{{ url_for('advertisement') }}">Advertise job offers</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="{{ url_for('contactus') }}">Contact Us</a>
+		</li>
+		<!--Dropdown-->
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">User</a>
+			{% block body %}{% endblock %}
+		</li>
+<!--modal-->
+		<div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modalLoginLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalLogin">Login</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+			<form action="/login" method="POST">
+			<div class="form-group">
+				<label for="username">username</label>
+				<input type="username" name="username" placeholder="Username" class="form-control" id="username">
+			</div>
+			<div class="form-group">
+				<label for="pwd">Password: </label>
+				<input type="password" name="password" placeholder="Password" class="form-control" id="pwd">
+			</div>
+			
+			<button type="submit" class="btn btn-success" value="Log in">Login</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalLoginwronged" tabindex="-1" role="dialog" aria-labelledby="modalLoginwrongedLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalLoginwronged">Login</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+			<form action="/login" method="POST">
+			<div class="form-group">
+				<label for="username">username</label>
+				<input type="username" name="username" placeholder="Username" class="form-control" id="username">
+			</div>
+			<div class="form-group">
+				<label for="pwd">Password: </label>
+				<input type="password" name="password" placeholder="Password" class="form-control" id="pwd">
+			</div>
+			
+			<div>Wrong password or username</div>
+			<button type="submit" class="btn btn-success" value="Log in">Login</button>
+			</form>
+			
+		</div>
+			</div>
+			</div>
+		</div>
+		<div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="modalRegisterLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalRegister">Register</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+			<form action="/register" method="POST">
+			<div class="form-group">
+				<label for="username">create username: </label>
+				<input type="username" name="username" class="form-control" id="username">
+			</div>
+			<div class="form-group">
+				<label for="pwd">create Password: </label>
+				<input type="password" name="password" class="form-control" id="pwd">
+			</div>
+                        <div class="form-group">
+				<label for="email">create Email: </label>
+				<input type="email" name="email" class="form-control" id="email">
+			</div>
+			<div class="form-group">
+				<label for="credit">create credit-card no.: </label>
+				<input type="number" name="creditcardNo" class="form-control" id="credit" >
+			</div>
+			<button type="submit" class="btn btn-success">Register</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalProfile" tabindex="-1" role="dialog" aria-labelledby="modalProfileLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalProfile">{{ session['username'] }}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+			<form action="/changeusername" method="POST">
+			<div class="form-group">
+				<label for="username">change username:</label>
+				<input type="username" name="username" class="form-control" id="username">
+			</div>
+                        <button type="submit" class="btn btn-success">change username</button>
+                        </form>
+                        <form action="/changepassword" method="POST">
+			<div class="form-group">
+				<label for="pwd">change password:</label>
+				<input type="password" name="password" class="form-control" id="pwd">
+			</div>
+			<div class="form-group">
+				<label for="pwd old">old password:</label>
+				<input type="password" name="passwordold" class="form-control" id="pwd old">
+			</div>
+                        <button type="submit" class="btn btn-success">change password</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalForgetpassword" tabindex="-1" role="dialog" aria-labelledby="modalForgetpasswordLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalForgetpassword">Forget password</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+                        <form action="/forgetpassword" method="POST">
+			<div class="form-group">
+				<label for="username">username:</label>
+				<input type="username" name="username" class="form-control" id="username">
+			</div>
+			<div class="form-group">
+				<label for="email">email:</label>
+				<input type="email" name="email" class="form-control" id="email">
+			</div>
+                        <button type="submit" class="btn btn-success">forget password</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+	</ul>
+	
+</div>
+</nav>
+<!--content-->
+<h1>Componennt of Machine</h1>
+{% block inner %}{% endblock %}
+<div class="modal fade" id="modalComponent6" tabindex="-1" role="dialog" aria-labelledby="modalComponent6Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalComponent6">Component</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			        </div>
+		<div class="modal-body">
+                        <img  src="https://img.icons8.com/color/96/000000/nintendo-64.png" >
+			<form action="/Purchase6" method="POST">
+			<div class="form-group">
+                        <label>How many you want to buy:</label><br>
+			<input type="number" name="componentNo6" min="1" max="10" >
+                        <span class="validity"></span>
+			</div>
+			<button type="submit" class="btn btn-success">Purchase</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalComponent5" tabindex="-1" role="dialog" aria-labelledby="modalComponent5Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalComponent5">Component</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			        </div>
+		<div class="modal-body">
+                         <img src="https://img.icons8.com/dusk/64/000000/transistor.png">
+			<form action="/Purchase5" method="POST">
+			<div class="form-group">
+                        <label>How many you want to buy:</label><br>
+			<input type="number" name="componentNo5" min="1" max="10" >
+                        <span class="validity"></span>
+			</div>
+			<button type="submit" class="btn btn-success">Purchase</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalComponent4" tabindex="-1" role="dialog" aria-labelledby="modalComponent4Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalComponent4">Component</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			        </div>
+		<div class="modal-body">
+                        <img src="https://img.icons8.com/dusk/64/000000/motherboard.png">
+			<form action="/Purchase4" method="POST">
+			<div class="form-group">
+                        <label>How many you want to buy:</label><br>
+			<input type="number" name="componentNo4" min="1" max="10" >
+                        <span class="validity"></span>
+			</div>
+			<button type="submit" class="btn btn-success">Purchase</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalComponent3" tabindex="-1" role="dialog" aria-labelledby="modalComponent3Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalComponent3">Component</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			        </div>
+		<div class="modal-body">
+                        <img  src="https://img.icons8.com/color/96/000000/nintendo-64.png" >
+			<form action="/Purchase3" method="POST">
+			<div class="form-group">
+                        <label>How many you want to buy:</label><br>
+			<input type="number" name="componentNo3" min="1" max="10" >
+                        <span class="validity"></span>
+			</div>
+			<button type="submit" class="btn btn-success">Purchase</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalComponent2" tabindex="-1" role="dialog" aria-labelledby="modalComponent2Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalComponent2">Component</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			        </div>
+		<div class="modal-body">
+                         <img src="https://img.icons8.com/dusk/64/000000/transistor.png">
+			<form action="/Purchase2" method="POST">
+			<div class="form-group">
+                        <label>How many you want to buy:</label><br>
+			<input type="number" name="componentNo2" min="1" max="10">
+                        <span class="validity"></span>
+			</div>
+			<button type="submit" class="btn btn-success">Purchase</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalComponent1" tabindex="-1" role="dialog" aria-labelledby="modalComponent1Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalComponent1">Component</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			        </div>
+		<div class="modal-body">
+                       <img src="https://img.icons8.com/dusk/64/000000/motherboard.png">
+			<form action="/Purchase1" method="POST">
+			<div class="form-group">
+                        <label>How many you want to buy:</label><br>
+			<input type="number" name="componentNo1" min="1" max="10" >
+                        <span class="validity"></span>
+			</div>
+			<button type="submit" class="btn btn-success">Purchase</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<!--footer-->
+<footer>
+	<p class="text-muted">
+	<a href="https://icons8.com/icon/1581/electronics" class="text-reset">Electronics icon by Icons8</a>
+	&nbsp;
+	<a href="https://icons8.com/icon/2797/home-filled" class="text-reset">Home Filled icon by Icons8 </a>
+	&nbsp;
+	<a href="https://icons8.com/icon/55053/motherboard" class="text-reset">Motherboard icon by Icons8</a>
+	&nbsp;
+	<a href="https://icons8.com/icon/66350/transistor" class="text-reset">Transistor icon by Icons8</a>
+	&nbsp;
+	<a href="https://icons8.com/icon/12773/search" class="text-reset">Search icon by Icons8</a>
+	</p>
+</footer>
+</body>
+</html>

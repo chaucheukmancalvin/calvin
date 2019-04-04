@@ -1,0 +1,55 @@
+{% extends "homepage.html" %}
+<!--difference between logged in and not logged in-->
+{% block body %}
+<div class="dropdown-menu">
+{% if session['logged_in'] %}
+<a class="dropdown-item" href="/logout">Logout</a>
+<a class="dropdown-item" href="/sellinfo">Record of selling secondhand device</a>
+<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalProfile">Proflie</a>
+<a class="dropdown-item" href="/purchasehistory">History</a>
+<script>if (window.location.pathname=="/login"){
+$(document).ready(function(){$("#modalLoginsuccess").modal("show");});}
+else if (window.location.pathname=="/changeusernameerror"){
+$(document).ready(function(){$("#modalProfileerror").modal("show");});}
+else if (window.location.pathname=="/changeusernameerror1"){
+$(document).ready(function(){$("#modalProfileerror1").modal("show");});}
+else if (window.location.pathname=="/changeusername"){
+$(document).ready(function(){$("#modalProfilesuccess").modal("show");});}
+else if (window.location.pathname=="/changepassworderror"){
+$(document).ready(function(){$("#modalPassworderror").modal("show");});}
+else if (window.location.pathname=="/changepassworderror1"){
+$(document).ready(function(){$("#modalPassworderror1").modal("show");});}
+else if (window.location.pathname=="/changepassword"){
+$(document).ready(function(){$("#modalPasswordsuccess").modal("show");});}
+</script>
+
+{% elif session['error'] %}
+<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalLogin">Login</a>
+<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalRegister">Register</a>
+<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalForgetpassword">forgetpassword</a>
+<script>if (window.location.pathname=="/loginerror"){
+$(document).ready(function(){$("#modalLoginwronged").modal("show");});}
+else if(window.location.pathname=="/registererror"){
+$(document).ready(function(){$("#modalRegisterfail").modal("show");});}
+else if (window.location.pathname=="/registererror1"){
+$(document).ready(function(){$("#modalRegisterfail1").modal("show");});}
+else if (window.location.pathname=="/registererror2"){
+$(document).ready(function(){$("#modalRegisterfail2").modal("show");});}
+else if (window.location.pathname=="/registererror3"){
+$(document).ready(function(){$("#modalRegisterfail3").modal("show");});}
+else if (window.location.pathname=="/forgeterror"){
+$(document).ready(function(){$("#modalForgeterror").modal("show");});}
+</script>
+{% else %}
+<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalLogin">Login</a>
+<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalRegister">Register</a>
+<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalForgetpassword">forgetpassword</a>
+<script>
+if (window.location.pathname=="/register"){
+$(document).ready(function(){$("#modalRegistersuccess").modal("show");});}
+else if (window.location.pathname=="/forgetpassword"){
+$(document).ready(function(){$("#modalReturnpassword").modal("show");});}
+</script>
+{% endif %}
+</div>
+{% endblock %}

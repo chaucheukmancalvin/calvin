@@ -1,0 +1,27 @@
+﻿@import 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:700';
+
+body {
+	font-family: "Source Sans Pro", sans-serif;
+	background: -webkit-linear-gradient(yellow,red);
+	background: -o-linear-gradient(yellow,red);
+	background: -moz-linear-gradient(yellow,red);
+	background: linear-gradient(yellow,red);;
+	-webkit-font-smoothing: antialiased;
+	
+}
+p {padding: 0px;
+	margin: 0;
+	background: -webkit-linear-gradient(yellow,red);
+	background: -o-linear-gradient(yellow,red);
+	background: -moz-linear-gradient(yellow,red);
+	background: linear-gradient(yellow,red);;
+}
+body .container {
+	text-align: center;
+	min-width: 200px;
+	min-height: 87vh;
+}
+
+h1 {text-align: center;	
+	font-size: 50px;}
+footer {font-size: 10px;}

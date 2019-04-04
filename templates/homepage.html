@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--import-->
+	<title>Hardware Production Co.</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{{
+ url_for('static', filename='CSS/homepage.css')}}">
+</head>
+<!--nav bar-->
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+	<a class="navbar-brand" href="#">
+	<img src="{{url_for('static',filename='icons8-home-filled-50.png')}}" alt="homepage img" ></a>
+	<!--Toggle/collapsilbe button-->
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<!--links-->
+	<div class="collapse navbar-collapse" id="collapsibleNavbar">
+	<ul class="navbar-nav">
+		<li class="nav-item">
+			<a class="nav-link" href="{{ url_for('aboutus') }}">About us</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="{{ url_for('advertisement') }}">Advertise job offers</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="{{ url_for('contactus') }}">Contact Us</a>
+		</li>
+		<!--Dropdown-->
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">User</a>
+			{% block body %}{% endblock %}
+		</li>
+           
+  <!--modal-->                          
+		<div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modalLoginLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalLogin">Login</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+			<form action="/login" method="POST">
+			<div class="form-group">
+				<label for="username">username</label>
+				<input type="username" name="username" placeholder="Username" class="form-control" id="username">
+			</div>
+			<div class="form-group">
+				<label for="pwd">Password: </label>
+				<input type="password" name="password" placeholder="Password" class="form-control" id="pwd">
+			</div>
+			
+			<button type="submit" class="btn btn-success" value="Log in">Login</button>
+			</form>
+			
+		</div>
+			</div>
+			</div>
+		</div>
+		
+
+		<div class="modal fade" id="modalLoginwronged" tabindex="-1" role="dialog" aria-labelledby="modalLoginwrongedLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalLoginwronged">Login</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="bthidden">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+			<form action="/login" method="POST">
+			<div class="form-group">
+				<label for="username">username</label>
+				<input type="username" name="username" placeholder="Username" class="form-control" id="username">
+			</div>
+			<div class="form-group">
+				<label for="pwd">Password: </label>
+				<input type="password" name="password" placeholder="Password" class="form-control" id="pwd">
+			</div>
+			
+			<div>Wrong password or username</div>
+			<button type="submit" class="btn btn-success" value="Log in">Login</button>
+			</form>
+			
+		</div>
+			</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="modalLoginsuccess" tabindex="-1" role="dialog" aria-labelledby="modalLoginsuccessLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalLoginsuccess">Login success</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="bthidden">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			         </div>
+		           </div>
+                          </div>
+                   </div>
+		<div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="modalRegisterLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalRegister">Register</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+			<form action="/register" method="POST">
+			<div class="form-group">
+				<label for="username">create username: </label>
+				<input type="username" name="username" class="form-control" id="username">
+			</div>
+			<div class="form-group">
+				<label for="pwd">create Password: </label>
+				<input type="password" name="password" class="form-control" id="pwd">
+			</div>
+                        <div class="form-group">
+				<label for="email">create Email: </label>
+				<input type="email" name="email" class="form-control" id="email">
+			</div>
+			<div class="form-group">
+				<label for="credit">create credit-card no.: </label>
+				<input type="number" name="creditcardNo" class="form-control" id="credit">
+			</div>
+			<button type="submit" class="btn btn-success">Register</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+
+
+
+<div class="modal fade" id="modalRegisterfail" tabindex="-1" role="dialog" aria-labelledby="modalRegisterfailLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalRegisterfail">Register</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+			<form action="/register" method="POST">
+			<div class="form-group">
+				<label for="username">create username: </label>
+				<input type="username" name="username" class="form-control" id="username">
+			</div>
+			<div class="form-group">
+				<label for="pwd">create Password: </label>
+				<input type="password" name="password" class="form-control" id="pwd">
+			</div>
+                        <div class="form-group">
+				<label for="email">create Email: </label>
+				<input type="email" name="email" class="form-control" id="email">
+			 </div>
+			<div class="form-group">
+				<label for="credit">create credit-card no.: </label>
+				<input type="number" name="creditcardNo" class="form-control" id="credit">
+			</div>
+			<div>username already used</div>
+			<button type="submit" class="btn btn-success">Register</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalRegisterfail1" tabindex="-1" role="dialog" aria-labelledby="modalRegisterfail1Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalRegisterfail1">Register</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+			<form action="/register" method="POST">
+			<div class="form-group">
+				<label for="username">create username: </label>
+				<input type="username" name="username" class="form-control" id="username">
+			</div>
+			<div class="form-group">
+				<label for="pwd">create Password: </label>
+				<input type="password" name="password" class="form-control" id="pwd">
+			</div>
+                        <div class="form-group">
+				<label for="email">create Email: </label>
+				<input type="email" name="email" class="form-control" id="email">
+			</div>
+			<div class="form-group">
+				<label for="credit">create credit-card no.: </label>
+				<input type="number" name="creditcardNo" class="form-control" id="credit" >
+			</div>
+			<div>credit-card error</div>
+			<button type="submit" class="btn btn-success">Register</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalRegisterfail2" tabindex="-1" role="dialog" aria-labelledby="modalRegisterfail2Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalRegisterfail2">Register</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+			<form action="/register" method="POST">
+			<div class="form-group">
+				<label for="username">create username: </label>
+				<input type="username" name="username" class="form-control" id="username">
+			</div>
+			<div class="form-group">
+				<label for="pwd">create Password: </label>
+				<input type="password" name="password" class="form-control" id="pwd">
+			</div>
+                        <div class="form-group">
+				<label for="email">create Email: </label>
+				<input type="email" name="email" class="form-control" id="email">
+			</div>
+			<div class="form-group">
+				<label for="credit">create credit-card no.: </label>
+				<input type="number" name="creditcardNo" class="form-control" id="credit" >
+			</div>
+			<div>please fill in the form</div>
+			<button type="submit" class="btn btn-success">Register</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalRegisterfail3" tabindex="-1" role="dialog" aria-labelledby="modalRegisterfail3Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalRegisterfail3">Register</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+			<form action="/register" method="POST">
+			<div class="form-group">
+				<label for="username">create username: </label>
+				<input type="username" name="username" class="form-control" id="username">
+			</div>
+			<div class="form-group">
+				<label for="pwd">create Password: </label>
+				<input type="password" name="password" class="form-control" id="pwd">
+			</div>
+                        <div class="form-group">
+				<label for="email">create Email: </label>
+				<input type="email" name="email" class="form-control" id="email">
+			</div>
+			<div class="form-group">
+				<label for="credit">create credit-card no.: </label>
+				<input type="number" name="creditcardNo" class="form-control" id="credit" >
+			</div>
+			<div>email error</div>
+			<button type="submit" class="btn btn-success">Register</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalRegistersuccess" tabindex="-1" role="dialog" aria-labelledby="modalRegistersuccessLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalRegistersuccess">Register success</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="bthidden">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			         </div>
+		           </div>
+                          </div>
+                   </div>
+<div class="modal fade" id="modalProfile" tabindex="-1" role="dialog" aria-labelledby="modalProfileLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalProfile">{{ session['username'] }}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+			<form action="/changeusername" method="POST">
+			<div class="form-group">
+				<label for="username">change username:</label>
+				<input type="username" name="username" class="form-control" id="username">
+			</div>
+                        <button type="submit" class="btn btn-success">change username</button>
+                        </form>
+                        <form action="/changepassword" method="POST">
+			<div class="form-group">
+				<label for="pwd">change password:</label>
+				<input type="password" name="password" class="form-control" id="pwd">
+			</div>
+			<div class="form-group">
+				<label for="pwd old">old password:</label>
+				<input type="password" name="passwordold" class="form-control" id="pwd old">
+			</div>
+                        <button type="submit" class="btn btn-success">change password</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+	
+<div class="modal fade" id="modalProfileerror" tabindex="-1" role="dialog" aria-labelledby="modalProfileerrorLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalProfileerror">{{ session['username'] }}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+			<form action="/changeusername" method="POST">
+			<div class="form-group">
+				<label for="username">change username:</label>
+				<input type="username" name="username" class="form-control" id="username">
+			</div>
+                        <div>username is used</div>
+                        <button type="submit" class="btn btn-success">change username</button>
+                        </form>
+                        <form action="/changepassword" method="POST">
+			<div class="form-group">
+				<label for="pwd">change password:</label>
+				<input type="password" name="password" class="form-control" id="pwd">
+			</div>
+			<div class="form-group">
+				<label for="pwd old">old password:</label>
+				<input type="password" name="passwordold" class="form-control" id="pwd old" >
+			</div>
+                        <button type="submit" class="btn btn-success">change password</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+	<div class="modal fade" id="modalProfileerror1" tabindex="-1" role="dialog" aria-labelledby="modalProfileerror1Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalProfileerror1">{{ session['username'] }}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+			<form action="/changeusername" method="POST">
+			<div class="form-group">
+				<label for="username">change username:</label>
+				<input type="username" name="username" class="form-control" id="username">
+			</div>
+                        <div>please fill in the blank</div>
+                        <button type="submit" class="btn btn-success">change username</button>
+                        </form>
+                        <form action="/changepassword" method="POST">
+			<div class="form-group">
+				<label for="pwd">change password:</label>
+				<input type="password" name="password" class="form-control" id="pwd">
+			</div>
+			<div class="form-group">
+				<label for="pwd old">old password:</label>
+				<input type="password" name="passwordold" class="form-control" id="pwd old" >
+			</div>
+                        <button type="submit" class="btn btn-success">change password</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalPassworderror" tabindex="-1" role="dialog" aria-labelledby="modalPassworderrorLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalPassworderror">{{ session['username'] }}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+			<form action="/changeusername" method="POST">
+			<div class="form-group">
+				<label for="username">change username:</label>
+				<input type="username" name="username" class="form-control" id="username">
+			</div>
+                        
+                        <button type="submit" class="btn btn-success">change username</button>
+                        </form>
+                        <form action="/changepassword" method="POST">
+			<div class="form-group">
+				<label for="pwd">change password:</label>
+				<input type="password" name="password" class="form-control" id="pwd">
+			</div>
+			<div class="form-group">
+				<label for="pwd old">old password:</label>
+				<input type="password" name="passwordold" class="form-control" id="pwd old">
+			</div>
+                        <div>please fill in the blank</div>
+                        <button type="submit" class="btn btn-success">change password</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalPassworderror1" tabindex="-1" role="dialog" aria-labelledby="modalPassworderror1Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalPassworderror1">{{ session['username'] }}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+			<form action="/changeusername" method="POST">
+			<div class="form-group">
+				<label for="username">change username:</label>
+				<input type="username" name="username" class="form-control" id="username">
+			</div>
+                        
+                        <button type="submit" class="btn btn-success">change username</button>
+                        </form>
+                        <form action="/changepassword" method="POST">
+			<div class="form-group">
+				<label for="pwd">change password:</label>
+				<input type="password" name="password" class="form-control" id="pwd">
+			</div>
+			<div class="form-group">
+				<label for="pwd old">old password:</label>
+				<input type="password" name="passwordold" class="form-control" id="pwd old" >
+			</div>
+                        <div>old password worng</div>
+                        <button type="submit" class="btn btn-success">change password</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalProfilesuccess" tabindex="-1" role="dialog" aria-labelledby="modalProfilesuccessLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalProfilesuccess">Your username has change to {{ session['username'] }}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+                       </div>
+                       </div>
+                </div>
+<div class="modal fade" id="modalPasswordsuccess" tabindex="-1" role="dialog" aria-labelledby="modalPasswordsuccessLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalPasswordsuccess">Your password has changed</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+                       </div>
+                       </div>
+                </div>
+<div class="modal fade" id="modalForgetpassword" tabindex="-1" role="dialog" aria-labelledby="modalForgetpasswordLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalForgetpassword">Forget password</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+                        <form action="/forgetpassword" method="POST">
+			<div class="form-group">
+				<label for="username">username:</label>
+				<input type="username" name="username" class="form-control" id="username">
+			</div>
+			<div class="form-group">
+				<label for="email">email:</label>
+				<input type="email" name="email" class="form-control" id="email">
+			</div>
+                        <button type="submit" class="btn btn-success">forget password</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+<div class="modal fade" id="modalReturnpassword" tabindex="-1" role="dialog" aria-labelledby="modalReturnpasswordLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalReturnpassword">An email has send to you</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+                       </div>
+                       </div>
+                </div>
+<div class="modal fade" id="modalForgeterror" tabindex="-1" role="dialog" aria-labelledby="modalForgeterrorLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalForgeterror">Something are worng please try again</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+                       </div>
+                       </div>
+                </div>
+	</ul>
+	
+</div>
+</nav>
+
+
+<!--Button under navbar with animation-->
+<h1>Welcome {{ name }}</h1>
+	<div class="flex">
+  <a href="{{ url_for('product') }}" class="bttn">Our product</a>
+  
+  <a>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </a>
+  <img src="https://img.icons8.com/ios/50/000000/robot.png" alt="robot img" height="100" width="100">
+</div>
+<div class="flex dark">
+<img src="https://img.icons8.com/ios/100/000000/electronics.png" alt="ele img" height="100" width="100">
+	<a>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </a>
+	
+  <a href="{{ url_for('component') }}" class="bttn-dark">Components of Machine</a>
+</div>
+<div class="flex blue">
+  <a href="{{ url_for('secondhand') }}" class="bttn-blue">Sell second-hand device</a>
+  
+  <a>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  </a>
+  <img src="https://img.icons8.com/ios/64/000000/sell-filled.png" alt="sell img" height="100" width="100">
+</div>
+<!--footer-->
+<footer>
+	<p class="text-muted">
+	<a href="https://icons8.com/icon/1581/electronics" class="text-reset">Electronics icon by Icons8</a>
+	&nbsp;
+	<a href="https://icons8.com/icon/2797/home-filled" class="text-reset">Home Filled icon by Icons8 </a>
+	&nbsp;
+	<a href="https://icons8.com/icon/8291/sell-filled" class="text-reset">Sell Filled icon by Icons8</a>
+	&nbsp;
+	<a href="https://icons8.com/icon/933/robot" class="text-reset">Robot icon by Icons8</a>
+	&nbsp;
+	<a href="https://icons8.com/icon/12773/search" class="text-reset">Search icon by Icons8</a>
+	</p>
+</footer>
+</body>
+</html>
+

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!--import-->
+	<title>Hardware Production Co.</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{{
+ url_for('static', filename='CSS/sellinfo.css')}}">
+</head>
+<!--nav bar-->
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+	<a class="navbar-brand" href="{{ url_for('index') }}">
+	<img src="{{url_for('static',filename='icons8-home-filled-50.png')}}" alt="homepage img" ></a>
+	<!--Toggle/collapsilbe button-->
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<!--links-->
+	<div class="collapse navbar-collapse" id="collapsibleNavbar">
+	<ul class="navbar-nav">
+		<li class="nav-item">
+			<a class="nav-link" href="{{ url_for('aboutus') }}">About us</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="{{ url_for('advertisement') }}">Advertise job offers</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="{{ url_for('contactus') }}">Contact Us</a>
+		</li>
+		<!--Dropdown-->
+		<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">User</a>
+			<div class="dropdown-menu">
+			<a class="dropdown-item" href="/logout">Logout</a>
+                        <a class="dropdown-item" href="#">Record of selling secondhand device</a>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalProfile">Proflie</a>
+                        <a class="dropdown-item" href="/purchasehistory">History</a>
+                        </div>
+		</li>
+<!--modal-->
+         <div class="modal fade" id="modalProfile" tabindex="-1" role="dialog" aria-labelledby="modalProfileLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalProfile">{{ session['username'] }}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+			<form action="/changeusername" method="POST">
+			<div class="form-group">
+				<label for="username">change username:</label>
+				<input type="username" name="username" class="form-control" id="username">
+			</div>
+                        <button type="submit" class="btn btn-success">change username</button>
+                        </form>
+                        <form action="/changepassword" method="POST">
+			<div class="form-group">
+				<label for="pwd">change password:</label>
+				<input type="password" name="password" class="form-control" id="pwd">
+			</div>
+			<div class="form-group">
+				<label for="pwd old">old password:</label>
+				<input type="password" name="passwordold" class="form-control" id="pwd old">
+			</div>
+                        <button type="submit" class="btn btn-success">change password</button>
+			</form>
+		</div>
+			</div>
+			</div>
+		</div>
+	</ul>
+	
+</div>
+</nav>
+<!--content-->
+{% if query %}
+<!--search-->
+<script>
+$(document).ready(function(){
+    $("#searchthing").on("keyup", function(){
+        var value = $(this).val().toLowerCase();
+        $("#usersell tr").filter(function(){
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+});
+});
+</script>
+<div style='width:100%;'>
+<h1>Request list:</h1>
+<h3>
+  <input class="form-control" id="searchthing" type="text" placeholder="Search table">
+</h3>
+
+<!--sort-->
+<h2>
+<a href="{{ url_for('sort') }}">
+		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sort by Lastest</button>
+	</a>
+<a href="{{ url_for('sellinfo') }}">
+		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sort by Default</button>
+	</a>
+</h2>
+<!--table-->
+<table>
+  
+  <tr>
+  <th style="width:12.5%;">Detail</th>
+    <th style="width:12.5%;">Price</th>
+    <th style="width:12.5%;">Username</th>
+    <th style="width:12.5%;">Modle</th>
+    <th style="width:12.5%;">State</th>
+    <th style="width:12.5%;">Photo</th>
+  </tr>
+  
+<tbody id="usersell">
+    {% for i in query %}
+      <tr>
+      <td>{{ i.detail }}</td>
+      <td>{{ i.price }}</td>
+      <td>{{ i.username }}</td>
+      <td>{{ i.modle }}</td>
+      <td>{{ i.state }}</td>
+       <td>{% if i.state == 'confirm' %}
+           <p>please click it to check</p>
+           <a href="#" data-toggle="modal" data-target="#modalInfo{{ i.id|string }}">
+           {% endif %}
+            <img src="{{ url_for('static',filename='uploadimg/' +  i.id|string  + '.' + List[0]) }}" width="70" height="70">
+           </a>
+           </td>
+            </tr>
+        <div class="modal fade" id="modalInfo{{ i.id|string }}" tabindex="-1" role="dialog" aria-labelledby="modalInfo{{ i.id|string }}Label" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalInfo{{ i.id|string }}">Confirm</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+                               </div>
+		               <div class="modal-body">
+                          <img src="{{ url_for('static',filename='uploadimg/' +  i.id|string  + '.' + List[0]) }}" width="100" height="100">
+                               <form method="POST" action="/confirmsell">
+                      <lable for="date">Select a date to send out the device:</lable>
+                      <input id="date" type="date" name="date{{ i.id|string }}" value="2019-01-01" min="1900-01-01" max="2100-01-01" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                               <span class="validity"></span>
+                               <button type="submit" class="btn btn-success" name="confirm{{ i.id|string }}">Confirm</button>
+                               </form>
+                               <form method="POST" action="/canclesell">
+                               <button type="submit" class="btn btn-danger" name="cancle{{ i.id|string }}">Cancle the request</button>
+                               </form>
+                               </div>
+                        </div>
+			</div>
+		</div>
+<script>if (window.location.pathname=="/confirmsell"){
+$(document).ready(function(){$("#modalconfirminfosuccess").modal("show");});}
+else if (window.location.pathname=="/canclesell"){
+$(document).ready(function(){$("#modalcanclesuccess").modal("show");});}
+else if (window.location.pathname=="/dateerror"){
+$(document).ready(function(){$("#modaldateerror").modal("show");});}
+</script>
+       <div class="modal fade" id="modalconfirminfosuccess" tabindex="-1" role="dialog" aria-labelledby="modalconfirminfosuccessLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalconfirminfosuccess">
+          Thank you to sell your device we will pay of it by putting credit into your credit-card between the week we receive the device
+                               </h5>
+                                <a href="{{ url_for('contactus') }}">please feel free to contact us if there is any queastions</a>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="bthidden">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			         </div>
+		           </div>
+                          </div>
+                   </div>
+<div class="modal fade" id="modalcanclesuccess" tabindex="-1" role="dialog" aria-labelledby="modalcanclesuccessLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalcanclesuccess">The request is cancled</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="bthidden">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			         </div>
+		           </div>
+                          </div>
+                   </div>
+<div class="modal fade" id="modaldateerror" tabindex="-1" role="dialog" aria-labelledby="modaldateerrorLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modaldateerror">The date is wrong</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="bthidden">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			         </div>
+		           </div>
+                          </div>
+                   </div>
+        {% if List.pop(0) %}    
+        {% endif %}
+    {% endfor %}
+</tbody>
+</table>
+</div>
+{% endif %}
+{% if not query %}
+<h1> No record </h1>
+{% endif %}
+</body>
+</html>

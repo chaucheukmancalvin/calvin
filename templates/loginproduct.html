@@ -1,0 +1,178 @@
+{% extends "product.html" %}
+<!--difference between logged in and not logged in-->
+{% block body %}
+<div class="dropdown-menu">
+{% if session['logged_in'] %}
+<a class="dropdown-item" href="/logout">Logout</a>
+<a class="dropdown-item" href="/sellinfo">Record of selling secondhand device</a>
+<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalProfile">Proflie</a>
+<a class="dropdown-item" href="/purchasehistory">History</a>
+{% else %}
+<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalLogin">Login</a>
+<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalRegister">Register</a>
+<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modalForgetpassword">forgetpassword</a>
+{% endif %}
+</div>
+{% endblock %}
+{% block inner %}
+{%if session['logged_in'] %}
+  <div class="container">
+  <div class="row">
+    <div class="col">
+      <img  src="https://img.icons8.com/dusk/64/000000/laptop.png">
+    </div>
+    <div class="col">
+      <img  src="https://img.icons8.com/ios/100/000000/touchscreen-smartphone.png">
+    </div>
+    <div class="col">
+      <img  src="https://img.icons8.com/color/96/000000/nintendo-64.png" >
+    </div>
+  </div>
+	<div class="row">
+		<div class="col">
+
+  <button class="btn btn-primary" data-toggle="modal" data-target="#modalProduct1">
+        $3480
+  </button>
+		</div>
+		<div class="col">
+  <button class="btn btn-info" data-toggle="modal" data-target="#modalProduct2">
+        $2000
+  </button>
+		</div>
+		<div class="col">
+  <button class="btn btn-warning" data-toggle="modal" data-target="#modalProduct3">
+        $4995
+  </button>
+		</div>
+	</div>
+	<div class="row">
+    <div class="col">
+      <img  src="https://img.icons8.com/dusk/64/000000/laptop.png">
+    </div>
+    <div class="col">
+      <img  src="https://img.icons8.com/ios/100/000000/touchscreen-smartphone.png">
+    </div>
+    <div class="col">
+      <img  src="https://img.icons8.com/color/96/000000/nintendo-64.png">
+    </div>
+  </div>
+	<div class="row">
+		<div class="col">
+  <button class="btn btn-secondary" data-toggle="modal" data-target="#modalProduct4">
+        $6890
+  </button>
+		</div>
+		<div class="col">
+  <button class="btn btn-dark" data-toggle="modal" data-target="#modalProduct5">
+        $7777
+  </button>
+		</div>
+		<div class="col">
+  <button class="btn btn-light" data-toggle="modal" data-target="#modalProduct6">
+        $4646
+  </button>
+		</div>
+	</div>
+</div>
+<script>if (window.location.pathname=="/purchase1"){
+$(document).ready(function(){$("#modalPurchasesuccess").modal("show");});}
+else if (window.location.pathname=="/purchase2"){
+$(document).ready(function(){$("#modalPurchasesuccess").modal("show");});}
+else if (window.location.pathname=="/purchase3"){
+$(document).ready(function(){$("#modalPurchasesuccess").modal("show");});}
+else if (window.location.pathname=="/purchase4"){
+$(document).ready(function(){$("#modalPurchasesuccess").modal("show");});}
+else if (window.location.pathname=="/purchase5"){
+$(document).ready(function(){$("#modalPurchasesuccess").modal("show");});}
+else if (window.location.pathname=="/purchase6"){
+$(document).ready(function(){$("#modalPurchasesuccess").modal("show");});}
+else if (window.location.pathname=="/producterror"){
+$(document).ready(function(){$("#modalPurchasefail").modal("show");});}
+</script>
+<div class="modal fade" id="modalPurchasesuccess" tabindex="-1" role="dialog" aria-labelledby="modalPurchasesuccessLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalPurchasesuccess">Purchase success</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="bthidden">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			         </div>
+		           </div>
+                          </div>
+                   </div>
+<div class="modal fade" id="modalPurchasefail" tabindex="-1" role="dialog" aria-labelledby="modalPurchasefailLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				<h5 class="modal-title" id="modalPurchasefail">Purchase fail please try again</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" id="bthidden">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			         </div>
+		           </div>
+                          </div>
+                   </div>
+{% else %}
+  <div class="container">
+  <div class="row">
+    <div class="col">
+      <img  src="https://img.icons8.com/dusk/64/000000/laptop.png">
+    </div>
+    <div class="col">
+      <img  src="https://img.icons8.com/ios/100/000000/touchscreen-smartphone.png">
+    </div>
+    <div class="col">
+      <img  src="https://img.icons8.com/color/96/000000/nintendo-64.png">
+    </div>
+  </div>
+	<div class="row">
+		<div class="col">
+
+ <button class="btn btn-primary" data-toggle="modal" data-target="#modalLogin">
+        $3480
+  </button>
+		</div>
+		<div class="col">
+  <button class="btn btn-info" data-toggle="modal" data-target="#modalLogin">
+        $2000
+  </button>
+		</div>
+		<div class="col">
+  <button class="btn btn-warning" data-toggle="modal" data-target="#modalLogin">
+        $4995
+  </button>
+		</div>
+	</div>
+	<div class="row">
+    <div class="col">
+      <img  src="https://img.icons8.com/dusk/64/000000/laptop.png">
+    </div>
+    <div class="col">
+      <img  src="https://img.icons8.com/ios/100/000000/touchscreen-smartphone.png">
+    </div>
+    <div class="col">
+      <img  src="https://img.icons8.com/color/96/000000/nintendo-64.png">
+    </div>
+</div>
+	<div class="row">
+		<div class="col">
+  <button class="btn btn-secondary" data-toggle="modal" data-target="#modalLogin">
+        $6890
+  </button>
+		</div>
+		<div class="col">
+  <button class="btn btn-dark" data-toggle="modal" data-target="#modalLogin">
+        $7777
+  </button>
+		</div>
+		<div class="col">
+  <button class="btn btn-light" data-toggle="modal" data-target="#modalLogin">
+        $4646
+  </button>
+		</div>
+	</div>
+</div>
+{% endif %}
+{% endblock %}
