@@ -7,7 +7,7 @@ html,body {background: -webkit-linear-gradient(pink,chocolate);
 	   background: -moz-linear-gradient(pink,chocolate);
 	   background: linear-gradient(pink,chocolate);;
            width: 100%;
-           height: 100%;
+           height: auto;
            text-align: center;
            font-family: "Source Sans Pro", sans-serif;
            }
